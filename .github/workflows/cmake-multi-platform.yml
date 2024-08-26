@@ -28,9 +28,9 @@ jobs:
         build_type: [Release]
         c_compiler: [gcc, clang, cl]
         include:
-          - os: windows-latest
-            c_compiler: cl
-            cpp_compiler: cl
+#          - os: windows-latest
+#            c_compiler: cl
+#            cpp_compiler: cl
           - os: ubuntu-latest
             c_compiler: gcc
             cpp_compiler: g++
@@ -38,10 +38,10 @@ jobs:
             c_compiler: clang
             cpp_compiler: clang++
         exclude:
-          - os: windows-latest
-            c_compiler: gcc
-          - os: windows-latest
-            c_compiler: clang
+#          - os: windows-latest
+#            c_compiler: gcc
+#          - os: windows-latest
+#            c_compiler: clang
           - os: ubuntu-latest
             c_compiler: cl
 
@@ -54,6 +54,9 @@ jobs:
       shell: bash
       run: |
         echo "build-output-dir=${{ github.workspace }}/build" >> "$GITHUB_OUTPUT"
+
+    - name: Install dependencies
+      run: apt-get install libldap2-dev libcurl4-openssl-dev
 
     - name: Configure CMake
       # Configure CMake in a 'build' subdirectory. `CMAKE_BUILD_TYPE` is only required if you are using a single-configuration generator such as make.
