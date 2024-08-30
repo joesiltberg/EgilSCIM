@@ -62,7 +62,15 @@ jobs:
 
     - name: Install dependencies on Windows
       if: matrix.os == 'windows-latest'
-      run: choco install curl boost-msvc-14.3
+      run: choco install boost-msvc-14.3
+
+    - name: Download and build cURL
+      if: matrix.os == 'windows-latest'
+      run: |
+        mkdir curl
+        cd curl
+        curl -O https://curl.se/download/curl-8.9.1.zip
+        unzip curl-8.9.1.zip
 
     - name: Configure CMake
       # Configure CMake in a 'build' subdirectory. `CMAKE_BUILD_TYPE` is only required if you are using a single-configuration generator such as make.
