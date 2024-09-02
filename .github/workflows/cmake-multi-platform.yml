@@ -27,7 +27,7 @@ jobs:
 #        os: [ubuntu-latest]
         os: [windows-latest]
         build_type: [Release]
-        c_compiler: [gcc, clang, cl]
+        c_compiler: [cl]
         cmake_preset: [windows, unix]
         include:
           - os: windows-latest
@@ -73,8 +73,14 @@ jobs:
       run: cmake -DCMAKE_CXX_COMPILER=${{ matrix.cpp_compiler }} -DCMAKE_C_COMPILER=${{ matrix.c_compiler }} --preset=${{ matrix.cmake_preset }}
 
     - name: Build
-      run: cmake --build ${{ steps.strings.outputs.build-output-dir }}
+      run: cmake --build ${{ steps.strings.outputs.build-output-dir }} --config ${{ matrix.build_type }}
 
-    - name: Test
+    - name: Tests on Windows
+      if: matrix.os == 'windows-latest'
+      working-directory: ${{ steps.strings.outputs.build-output-dir }}
+      run: .\${{ matrix.build_type }}\tests.exe
+
+    - name: Tests on Unix
+      if: matrix.os == 'ubuntu-latest'
       working-directory: ${{ steps.strings.outputs.build-output-dir }}
       run: ./tests
