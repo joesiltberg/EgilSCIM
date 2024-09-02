@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.10)
+cmake_minimum_required(VERSION 3.12)
 project(EgilSCIMClient CXX)
 
 set(EgilSCIM_VERSION_MAJOR 2)
@@ -35,7 +35,7 @@ else()
     include_directories(${CURL_INCLUDE_DIRS})
 endif ()
 
-find_package(Boost REQUIRED COMPONENTS program_options)
+find_package(Boost REQUIRED COMPONENTS program_options uuid)
 if (NOT Boost_FOUND)
     message(FATAL_ERROR "please install boost")
 else ()
@@ -43,7 +43,7 @@ else ()
 endif ()
 
 if (WIN32)
-    set(LDFLAGS wldap32.lib ${CURL_LIBRARY_RELEASE})
+    set(LDFLAGS wldap32.lib Bcrypt.lib ${CURL_LIBRARIES})
 else()
     set(LDFLAGS -lldap -llber -lcurl -lstdc++fs -ldl)
 endif()
@@ -60,7 +60,7 @@ add_library (Egil ${SOURCES})
 add_executable(EgilSCIMClient ${srcroot}/main.cpp)
 add_executable(tests ${TEST_SOURCES})
 
-target_link_libraries(EgilSCIMClient LINK_PUBLIC Egil Boost::program_options)
+target_link_libraries(EgilSCIMClient LINK_PUBLIC Egil Boost::program_options Boost::uuid CURL::libcurl)
 target_link_libraries(tests LINK_PUBLIC Egil)
 
 install (TARGETS EgilSCIMClient DESTINATION bin)
