@@ -30,10 +30,10 @@ jobs:
             c_compiler: cl
             cpp_compiler: cl
             cmake_preset: windows
-	  - os: ubuntu-latest
-	    c_compiler: gcc
-	    cpp_compiler: g++
-	    cmake_preset: unix
+          - os: ubuntu-latest
+            c_compiler: gcc
+            cpp_compiler: g++
+            cmake_preset: unix
 #        exclude:
 #          - os: windows-latest
 #            c_compiler: gcc
