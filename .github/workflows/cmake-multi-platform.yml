@@ -66,11 +66,11 @@ jobs:
       uses: actions/upload-artifact@v4
       with:
         name: EgilSCIMClient-${{ matrix.os }}
-	path: build/${{ matrix.build_type }}
+        path: build/${{ matrix.build_type }}
 
     - name: Upload Ubuntu artifacts
       if: matrix.os == 'ubuntu-latest'
       uses: actions/upload-artifact@v4
       with:
         name: EgilSCIMClient-${{ matrix.os }}
-	path: build/EgilSCIMClient
+        path: build/EgilSCIMClient
