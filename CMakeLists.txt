@@ -45,7 +45,7 @@ endif ()
 if (WIN32)
     set(LDFLAGS wldap32.lib Bcrypt.lib ${CURL_LIBRARIES})
 else()
-    set(LDFLAGS -lldap -llber -lcurl -lstdc++fs -ldl)
+    set(LDFLAGS -lldap -llber -lstdc++fs -ldl ${CURL_LIBRARIES})
 endif()
 
 link_libraries(${LDFLAGS})
