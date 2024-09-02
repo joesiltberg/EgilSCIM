@@ -28,6 +28,7 @@ jobs:
         os: [windows-latest]
         build_type: [Release]
         c_compiler: [gcc, clang, cl]
+        cmake_preset: [windows, unix]
         include:
           - os: windows-latest
             c_compiler: cl
