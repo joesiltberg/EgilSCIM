@@ -56,6 +56,11 @@ jobs:
       run: |
         echo "build-output-dir=${{ github.workspace }}/build" >> "$GITHUB_OUTPUT"
 
+    - name: "Set environmental variables"
+      shell: bash
+      run: |
+        echo "VCPKG_ROOT=$VCPKG_INSTALLATION_ROOT" >> $GITHUB_ENV        
+
     - name: Install dependencies on Ubuntu
       if: matrix.os == 'ubuntu-latest'
       run: sudo apt-get install -y libldap2-dev libcurl4-openssl-dev libboost-all-dev
